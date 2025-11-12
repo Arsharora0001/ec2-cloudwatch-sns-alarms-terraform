@@ -1,0 +1,45 @@
+
+
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "metrics": {
+    "append_dimensions": {
+      "InstanceId": "${aws:InstanceId}"
+    },
+    "aggregation_dimensions": [
+      ["InstanceId", "path"]
+    ],
+    "metrics_collected": {
+      "disk": {
+        "resources": ["/", "/data"],
+        "measurement": [
+          { "name": "disk_used_percent", "unit": "Percent" },
+          { "name": "disk_free", "unit": "Gigabytes" }
+        ],
+        "ignore_file_system_types": [
+          "sysfs", "devtmpfs", "overlay", "squashfs", "proc", "tmpfs", "devfs", "autofs"
+        ],
+        "metrics_collection_interval": 60
+      },
+      "mem": {
+        "measurement": [
+          { "name": "mem_used_percent", "unit": "Percent" },
+          { "name": "mem_free", "unit": "Megabytes" }
+        ],
+        "metrics_collection_interval": 60
+      },
+      "cpu": {
+        "measurement": [
+          { "name": "cpu_usage_idle", "unit": "Percent" },
+          { "name": "cpu_usage_user", "unit": "Percent" },
+          { "name": "cpu_usage_system", "unit": "Percent" }
+        ],
+        "totalcpu": true,
+        "metrics_collection_interval": 60
+      }
+    }
+  }
+}
